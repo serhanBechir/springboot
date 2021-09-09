@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         }
         throw new UsernameNotFoundException("Invalid username or password");
     }
+
     public User save(User user){
          return userRepository.save(user);
     }

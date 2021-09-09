@@ -4,6 +4,7 @@ import com.serhan.springboogDeliveryApp.model.User;
 import com.serhan.springboogDeliveryApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +29,26 @@ public class UserController {
     public String showRegistrationForm(){
         return "register";
     }
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user){//or choose to use DTO
         userService.save(user);
         return "redirect:/register?success";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/home")
+    public String home(){
+        return "home";
+    }
+
+    @GetMapping("/orders")
+    public String orders(){
+        return "orders";
+    }
+
 }
