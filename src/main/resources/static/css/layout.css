@@ -82,6 +82,7 @@ a:focus {
     border-bottom: 1px solid #747475;
 }
 
+
 #sidebar ul p {
     color: #fff;
     padding: 10px;
@@ -144,6 +145,7 @@ a.article:hover {
     background: #747475 !important;
     color: #fff !important;
 }
+
 
 /* ---------------------------------------------------
     CONTENT STYLE

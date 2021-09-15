@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -9,12 +8,16 @@
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="" th:href="@{/css/login_register.css }">
 </head>
 <body>
+
 <header class="mb-auto">
 
-    <h3 class="float-md-start m-3 text-left"> <a th:href="@{/home}" class="text-decoration-none text-white">Cover</a></h3>
+    <h3 class="float-md-start m-3 text-left"><a th:href="@{/index}" class="text-decoration-none text-white">One
+        Product</a></h3>
 
 </header>
 <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
@@ -26,66 +29,65 @@
                 <div class="col-md-5">
                     <img src="" th:src="@{/images/resized.jpg}" alt="login" class="login-card-img">
                     <p class="text-white font-weight-medium text-center flex-grow align-self-end footer-link text-small">
-                        Free <a href="https://www.bootstrapdash.com/" target="_blank" class="text-white">Bootstrap dashboard templates</a> from Bootstrapdash
+                        Free <a href="https://www.bootstrapdash.com/" target="_blank" class="text-white">Bootstrap
+                        dashboard templates</a> from Bootstrapdash
                     </p>
                 </div>
                 <div class="col-md-7">
 
                     <div class="card-body">
 
-                        <div class="brand-wrapper">
-                            <img src="assets/images/logo.svg" alt="logo" class="logo">
+
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger alert-dismissible" role="alert" id="loginAlert">
+                                Invalid email or password
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
                         </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-dark alert-dismissible" role="alert" id="logoutAlert">
+                                You have been successfully logged out
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        </div>
+
                         <p class="login-card-description">Sign into your account</p>
                         <form th:action="@{/login}" method="post">
                             <div class="form-group">
                                 <label for="username" class="sr-only">Email</label>
-                                <input type="text" name="username" id="username" class="form-control" placeholder="Email address">
+                                <input type="text" name="username" id="username" class="form-control"
+                                       placeholder="Email address">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password" class="sr-only">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="***********">
+                                <input type="password" name="password" id="password" class="form-control"
+                                       placeholder="***********">
                             </div>
-                            <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Login">
+                            <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit"
+                                   value="Login">
                         </form>
 
                         <a href="#!" class="forgot-password-link">Forgot password?</a>
-                        <p class="login-card-footer-text">Don't have an account? <a th:href="@{/register}" class="text-reset">Register here</a></p>
+                        <p class="login-card-footer-text">Don't have an account? <a th:href="@{/register}"
+                                                                                    class="text-reset">Register here</a>
+                        </p>
 
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="card login-card">
-          <img src="assets/images/old.jpg" alt="login" class="login-card-img">
-          <div class="card-body">
-            <h2 class="login-card-title">Login</h2>
-            <p class="login-card-description">Sign in to your account to continue.</p>
-            <form action="#!">
-              <div class="form-group">
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
-              </div>
-              <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="form-prompt-wrapper">
-                <div class="custom-control custom-checkbox login-card-check-box">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1">
-                  <label class="custom-control-label" for="customCheck1">Remember me</label>
-                </div>
-                <a href="#!" class="text-reset">Forgot password?</a>
-              </div>
-              <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Login">
-            </form>
-            <p class="login-card-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
-          </div>
-        </div> -->
+
     </div>
 </main>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -13,7 +13,12 @@
     <link rel="stylesheet" href="" th:href="@{/css/login_register.css }">
 </head>
 <body>
+<header class="mb-auto">
 
+    <h3 class="float-md-start m-3 text-left"><a th:href="@{/index}" class="text-decoration-none text-white">One
+        Product</a></h3>
+
+</header>
 <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
 
     <div class="container">
@@ -31,9 +36,6 @@
 
                     <div class="card-body">
 
-                        <div class="brand-wrapper">
-                            <img src="assets/images/logo.svg" alt="logo" class="logo">
-                        </div>
 
                         <p class="login-card-description">Register an account</p>
                         <div th:if="${param.success}">

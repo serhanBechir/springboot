@@ -3,6 +3,7 @@ package com.serhan.springboogDeliveryApp.controllers;
 import com.serhan.springboogDeliveryApp.model.User;
 import com.serhan.springboogDeliveryApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +15,18 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @ModelAttribute("user")
     public User user(){
         return new User();
     }
 
-    @GetMapping("/index")
-    public String index(){
-        return "index.html";
+    @GetMapping("/welcome")
+    public String welcome(Model model){
+        model.addAttribute("firstName", userService.getLoggedUser().getFirstName());
+        return "welcome";
     }
 
     @GetMapping("/register")
@@ -31,7 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user){//or choose to use DTO
+    public String registerUser(@ModelAttribute("user") User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));//or choose to use DTO
         userService.save(user);
         return "redirect:/register?success";
     }
@@ -41,14 +46,9 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/index")
     public String home(){
-        return "home";
-    }
-
-    @GetMapping("/orders")
-    public String orders(){
-        return "orders";
+        return "index";
     }
 
 }
