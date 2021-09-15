@@ -42,4 +42,12 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

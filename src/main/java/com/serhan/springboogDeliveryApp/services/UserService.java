@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 public interface UserService extends UserDetailsService {
 
     public User save(User user);
+    public User findByEmail(String email);
+    public User getLoggedUser();
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/components/layout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+
+</head>
+<body>
+<div layout:fragment="content">
+
+
+    <div class="container my-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dark " data-bs-toggle="modal"
+                data-bs-target="#addOrderModal">
+            Add new order
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="addOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form th:action="@{/addOrder}" th:object="${order}" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addOrderLabel">New Order</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+
+                                <input type="text" th:field="*{quantity}" name="Quantity" id="quantity"
+                                       class="form-control" placeholder="Quantity" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                            <input name="submitOrder" id="submitOrder" class="btn btn-secondary"
+                                   type="submit" value="Submit Order">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <br>
+        <h2>Orders</h2>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-secondary">
+                <th style="width:10%">
+                </th>
+                <th>ID</th>
+                <th style="width:40%">Time</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order :${orderList}">
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            th:data-bs-target="|#orderModal${order.id}|">
+                        Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="|orderModal${order.id}|" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"
+                                        th:text="Order + ' ' + ${order.id}"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this order?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <a th:href="@{/deleteOrder/{id}(id=${order.id})}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.orderTime}"></td>
+                <td th:text="${order.quantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav th:if="${totalPages > 1}" aria-label="PaginationLabel">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage > 1}"
+                       th:href="@{'/page/' + ${currentPage - 1}}">Previous</a>
+                </li>
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <li class="page-item"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}" class="page-item"><a class="page-link">[[${i}]]</a>
+                        </span>
+                </li></span>
+
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage < totalPages}"
+                       th:href="@{'/page/' + ${totalPages}}">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+</div>
+</body>
+</html>
